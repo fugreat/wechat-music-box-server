@@ -1,0 +1,39 @@
+{
+  "name": "weixin-robot",
+  "version": "0.5.2",
+  "repository": "git://github.com/node-webot/weixin-robot.git",
+  "description": "微信公众平台开放消息接口机器人 A robot for wechat.",
+  "author": "Jesse Yang <kissmud@gmail.com> (https://github.com/ktmud)",
+  "dependencies": {
+    "debug": "~0.7.2",
+    "webot": "0.1.6",
+    "wechat-mp": "~0.1.1",
+    "mqtt": "*",
+    "mosca": "*"
+    
+  },
+  "devDependencies": {
+    "mocha": "~1.16.2",
+    "should": "~2.1.1",
+    "ejs": "~0.8.5",
+    "jscover": "*",
+    "supertest": "*",
+    "express": "*",
+    "wechat": "*",
+    "connect": "*"
+  },
+  "engines": {
+    "node" : ">=0.6.0",
+    "npm" : ">=1.1.6"
+  },
+  "keywords": [
+    "weixin",
+    "robot",
+    "webot",
+    "wechat"
+  ],
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R spec"
+  },
+  "license": "MIT"
+}
