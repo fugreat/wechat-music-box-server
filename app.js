@@ -83,12 +83,27 @@ app.use('/', wechat('fugreat', function (req, res, next) {
   }
   else if (msg.MsgType == 'text') {
     fs.appendFile('msg.log', msg.FromUserName + " 说: " + msg.Content + "\n");
-    //if ( msg.FromUserName == USER1|| msg.FromUserName ==  USER2 ) {
-    if(msg.Content =="前" ||msg.Content =="后" ||msg.Content =="左" ||msg.Content =="右" ||msg.Content =="停"){
-      client.publish('jx', msg.Content); //通过mqtt推送消息
-      ret = "你好" +  msg.FromUserName + "\r\n," + "收到指令："+msg.Content;
+      var msg_to_send = null;
+      if (msg.Content == "前" || msg.Content == "go") {
+          msg_to_send = 'go';
       }
-    //}
+      if (msg.Content == "后" || msg.Content == "back") {
+          msg_to_send = 'back';
+      }
+      if (msg.Content == "左" || msg.Content == "left") {
+          msg_to_send = 'left';
+      }
+      if (msg.Content == "右" || msg.Content == "right") {
+          msg_to_send = 'right';
+      }
+      if (msg.Content == "停" || msg.Content == "stop") {
+          msg_to_send = 'stop';
+      }
+      if (msg_to_send) {
+          client.publish('test/weixin/topic0', 'ANS:' + msg.Content); //通过mqtt推送消息
+          ret = "Hi" + msg.FromUserName + "\r\n," + "收到指令：" + msg_to_send;
+      }
+
     for (var key in text_rpls) {
       if (msg.Content.indexOf(key) >= 0) {
         ret = text_rpls[key];
