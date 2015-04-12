@@ -81,7 +81,7 @@ app.use('/', wechat('fugreat', function (req, res, next) {
   else if (msg.MsgType == 'text') {
     fs.appendFile('msg.log', msg.FromUserName + " 说: " + msg.Content + "\n");
     //if ( msg.FromUserName == USER1|| msg.FromUserName ==  USER2 ) {
-    IF（msg.Content =="前" ||msg.Content =="后" ||msg.Content =="左" ||msg.Content =="右" ||msg.Content =="停" ）{
+    if(msg.Content =="前" ||msg.Content =="后" ||msg.Content =="左" ||msg.Content =="右" ||msg.Content =="停"){
       client.publish('test/weixin/topic0', 'ANS:'+ msg.Content); //通过mqtt推送消息
       ret = "你好" +  msg.FromUserName + "\r\n," + "收到指令："+msg.Content;
       }
