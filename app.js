@@ -100,7 +100,7 @@ app.use('/', wechat('fugreat', function (req, res, next) {
           msg_to_send = 'stop';
       }
       if (msg_to_send) {
-          client.publish('test/weixin/topic0', 'ANS:' + msg.Content); //通过mqtt推送消息
+          client.publish('jx', msg_to_send); //通过mqtt推送消息
           ret = "Hi" + msg.FromUserName + "\r\n," + "收到指令：" + msg_to_send;
       }
 
