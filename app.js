@@ -10,7 +10,7 @@ var fs = require('fs');
 
 var wechat = require('wechat');
 var mqttClient = require('mqtt');
-var client = mqttClient.createClient(1883, 'iot.eclipse.org'); //host与端口
+var client = mqttClient.createClient(1883, 'weixin.yizhihe.cn'); //host与端口
 
 var USER1='o4zcvt6tAxeeb2aAcSiEXenN3y2g';
 var USER2='o4zcvt2xKKfBcKDIt3kEJke1PQMQ';
@@ -49,7 +49,7 @@ app.get('/weixin', function(req, res) {
 var rpls = {
   'subscribe': [{
         title: '欢迎关注小夫子的微信测试平台',
-        description: '额，功能还没想好...',
+        description: '这是一个微信端到硬件的控制演示工程，尝试输入 "前","后","左","右","停"来移动小车.',
         picurl: 'http://7xi5kc.com1.z0.glb.clouddn.com/logo-view.jpg',
         url: 'http://weixin.yizhihe.cn/'
   }]
@@ -80,9 +80,12 @@ app.use('/', wechat('fugreat', function (req, res, next) {
   }
   else if (msg.MsgType == 'text') {
     fs.appendFile('msg.log', msg.FromUserName + " 说: " + msg.Content + "\n");
-    if ( msg.FromUserName == USER1|| msg.FromUserName ==  USER2 ) {
-        client.publish('test/weixin/topic0', 'ANS:'+ msg.Content);
-    } 
+    //if ( msg.FromUserName == USER1|| msg.FromUserName ==  USER2 ) {
+    IF（msg.Content =="前" ||msg.Content =="后" ||msg.Content =="左" ||msg.Content =="右" ||msg.Content =="停" ）{
+      client.publish('test/weixin/topic0', 'ANS:'+ msg.Content); //通过mqtt推送消息
+      ret = "你好" +  msg.FromUserName + "\r\n," + "收到指令："+msg.Content;
+      }
+    //}
     for (var key in text_rpls) {
       if (msg.Content.indexOf(key) >= 0) {
         ret = text_rpls[key];
