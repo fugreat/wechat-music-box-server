@@ -50,7 +50,7 @@ var rpls = {
   'subscribe': [{
         title: '欢迎关注小夫子的微信测试平台',
         description: '额，功能还没想好...',
-        picurl: 'http://mmbiz.qpic.cn/mmbiz/hGMGbG9krbFm6viaCLNHEnLz9TB1iatib1pjtTxNjZyxP0jmfh6Ttat87ialicmGdF0bTbtMuYKZ7ElF4ACrGRJKy6Q/0',
+        picurl: 'http://7xi5kc.com1.z0.glb.clouddn.com/logo-view.jpg',
         url: 'http://weixin.yizhihe.cn/'
   }]
 };
