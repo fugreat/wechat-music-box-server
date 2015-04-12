@@ -10,7 +10,10 @@ var fs = require('fs');
 
 var wechat = require('wechat');
 var mqttClient = require('mqtt');
-var client = mqttClient.createClient(1883, 'weixin.yizhihe.cn'); //host与端口
+//var client = mqttClient.createClient(1883, 'weixin.yizhihe.cn'); //host与端口
+var client = mqttClient.createClient(1883, 'iot.eclipse.org'); //host与端口
+client.subscribe('jx'); 
+client.on('message', function(topic, message){ console.log(topic, message); });
 
 var USER1='o4zcvt6tAxeeb2aAcSiEXenN3y2g';
 var USER2='o4zcvt2xKKfBcKDIt3kEJke1PQMQ';
@@ -82,7 +85,7 @@ app.use('/', wechat('fugreat', function (req, res, next) {
     fs.appendFile('msg.log', msg.FromUserName + " 说: " + msg.Content + "\n");
     //if ( msg.FromUserName == USER1|| msg.FromUserName ==  USER2 ) {
     if(msg.Content =="前" ||msg.Content =="后" ||msg.Content =="左" ||msg.Content =="右" ||msg.Content =="停"){
-      client.publish('test/weixin/topic0', 'ANS:'+ msg.Content); //通过mqtt推送消息
+      client.publish('jx', msg.Content); //通过mqtt推送消息
       ret = "你好" +  msg.FromUserName + "\r\n," + "收到指令："+msg.Content;
       }
     //}
@@ -147,5 +150,4 @@ app.use('/', wechat('fugreat', function (req, res, next) {
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-
 
