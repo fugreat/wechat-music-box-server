@@ -48,16 +48,15 @@ app.get('/weixin', function(req, res) {
 
 var rpls = {
   'subscribe': [{
-        title: '欢迎关注',
-        description: '.aaaaaaaaaaaaaaaaaaaa',
-        // picurl: 'http://xiaopei.li/wiki/lib/exe/fetch.php?media=nature:320px-giraffe08_-_melbourne_zoo.jpg',
-    picurl: 'http://mmbiz.qpic.cn/mmbiz/hGMGbG9krbFm6viaCLNHEnLz9TB1iatib1pjtTxNjZyxP0jmfh6Ttat87ialicmGdF0bTbtMuYKZ7ElF4ACrGRJKy6Q/0',
+        title: '欢迎关注小夫子的微信测试平台',
+        description: '额，功能还没想好...',
+        picurl: 'http://mmbiz.qpic.cn/mmbiz/hGMGbG9krbFm6viaCLNHEnLz9TB1iatib1pjtTxNjZyxP0jmfh6Ttat87ialicmGdF0bTbtMuYKZ7ElF4ACrGRJKy6Q/0',
         url: 'http://weixin.yizhihe.cn/'
   }]
 };
 
 var text_rpls = {
-  '电话': '136-WLMQ-1090',
+  '电话': '13602002741',
   '密码': 'greedisgood'
 };
 
