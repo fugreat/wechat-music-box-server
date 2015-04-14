@@ -15,15 +15,12 @@ var client = mqttClient.createClient(1883, 'iot.eclipse.org'); //host与端口
 client.subscribe('jx'); 
 client.on('message', function(topic, message){ console.log(topic, message); });
 
-var USER1='o4zcvt6tAxeeb2aAcSiEXenN3y2g';
-var USER2='o4zcvt2xKKfBcKDIt3kEJke1PQMQ';
 
 var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
-console.log(process.env.PORT);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -54,7 +51,7 @@ var rpls = {
         title: '欢迎关注小夫子的微信测试平台',
         description: '这是一个微信端到硬件的控制演示工程，尝试输入 "前","后","左","右","停"来移动小车.',
         picurl: 'http://7xi5kc.com1.z0.glb.clouddn.com/logo-view.jpg',
-        url: 'http://weixin.yizhihe.cn/'
+        url: 'http://www.baidu.com/'
   }]
 };
 
@@ -120,41 +117,6 @@ app.use('/', wechat('fugreat', function (req, res, next) {
 
     ret = rpls['subscribe'];
   }
-
-  /*
-    // subscribe
-    { ToUserName: 'gh_853f19b37122',
-    FromUserName: 'o8wfhjsB1cHltZa8eGVn1AtQ2C9A',
-    CreateTime: '1392434062',
-    MsgType: 'event',
-    Event: 'subscribe',
-    EventKey: '' }
-
-    // text
-    { ToUserName: 'gh_853f19b37122',
-    FromUserName: 'o8wfhjsB1cHltZa8eGVn1AtQ2C9A',
-    CreateTime: '1392433952',
-    MsgType: 'text',
-    Content: 'Hi',
-    MsgId: '5980458285880085495' }
-
-    // unsubscribe
-    { ToUserName: 'gh_853f19b37122',
-    FromUserName: 'o8wfhjsB1cHltZa8eGVn1AtQ2C9A',
-    CreateTime: '1392434012',
-    MsgType: 'event',
-    Event: 'unsubscribe',
-    EventKey: '' }
-
-    // image
-    { ToUserName: 'gh_853f19b37122',
-    FromUserName: 'o8wfhjsB1cHltZa8eGVn1AtQ2C9A',
-    CreateTime: '1392434236',
-    MsgType: 'image',
-    PicUrl: 'http://mmbiz.qpic.cn/mmbiz/I7EpCK27vIlA4zwOv13lprMv0q4OIc7pRvVOobxwc9wmuibQxgXqHMiaD1g752hov3Fy7Pk3h2DaECzhGb3ibApSQ/0',
-    MsgId: '5980459505650797575',
-    MediaId: 'Sf4nmBUktek6OE2p8tWKV7i2usFwPfi3CRtiMbUm2wna9WgBulK9v_Szrcclby54' }
-  */
 
   res.reply(ret);
 
