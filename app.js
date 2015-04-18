@@ -72,7 +72,7 @@ function motoRun(action)
     if (action == "后" || action == "back" || action.match("后") || py.match("hòu")) {
         msg_to_send = 'back';
     }
-    if (action == "左" || action == "left" || action.match("左") || py.mchat("ǒ")) {
+    if (action == "左" || action == "left" || action.match("左") || py.match("zuǒ") ) {
         msg_to_send = 'left';
     }
     if (action == "右" || action == "right" || action.match("右") || py.match("yòu")) {
