@@ -63,20 +63,22 @@ var text_rpls = {
 function motoRun(action)
 {
     var msg_to_send = null;
-    var py = pinyin(action);
-    if (action == "前" || action == "go" || action.match("前") || py.match("qian")) {
+    var py = pinyin(action).toString();
+	console.log(py);
+	console.log(pinyin("左".toString().toString()));
+    if (action == "前" || action == "go" || action.match("前") || py.match("qián")) {
         msg_to_send = 'go';
     }
-    if (action == "后" || action == "back" || action.match("后") || py.match("hou")) {
+    if (action == "后" || action == "back" || action.match("后") || py.match("hòu")) {
         msg_to_send = 'back';
     }
-    if (action == "左" || action == "left" || action.match("左") || py.match("zuo")) {
+    if (action == "左" || action == "left" || action.match("左") || py.mchat("ǒ")) {
         msg_to_send = 'left';
     }
-    if (action == "右" || action == "right" || action.match("右") || py.match("you")) {
+    if (action == "右" || action == "right" || action.match("右") || py.match("yòu")) {
         msg_to_send = 'right';
     }
-    if (action == "停" || action == "stop" || action.match("停") || py.match("ting")) {
+    if (action == "停" || action == "stop" || action.match("停") || py.match("tíng")) {
         msg_to_send = 'stop';
     }
     return msg_to_send;
