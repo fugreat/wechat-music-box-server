@@ -5,7 +5,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-
+var pinyin = require('pinyin');
 var fs = require('fs');
 
 var wechat = require('wechat');
@@ -60,6 +60,28 @@ var text_rpls = {
   '密码': 'greedisgood'
 };
 
+function motoRun(action)
+{
+    var msg_to_send = null;
+    var py = pinyin(action);
+    if (action == "前" || action == "go" || action.match("前") || py.match("qian")) {
+        msg_to_send = 'go';
+    }
+    if (action == "后" || action == "back" || action.match("后") || py.match("hou")) {
+        msg_to_send = 'back';
+    }
+    if (action == "左" || action == "left" || action.match("左") || py.match("zuo")) {
+        msg_to_send = 'left';
+    }
+    if (action == "右" || action == "right" || action.match("右") || py.match("you")) {
+        msg_to_send = 'right';
+    }
+    if (action == "停" || action == "stop" || action.match("停") || py.match("ting")) {
+        msg_to_send = 'stop';
+    }
+    return msg_to_send;
+
+}
 app.use(express.query());
 app.use('/', wechat('fugreat', function (req, res, next) {
   // 微信输入信息都在req.weixin上
@@ -80,25 +102,11 @@ app.use('/', wechat('fugreat', function (req, res, next) {
   }
   else if (msg.MsgType == 'text') {
     fs.appendFile('msg.log', msg.FromUserName + " 说: " + msg.Content + "\n");
-      var msg_to_send = null;
-      if (msg.Content == "前" || msg.Content == "go") {
-          msg_to_send = 'go';
-      }
-      if (msg.Content == "后" || msg.Content == "back") {
-          msg_to_send = 'back';
-      }
-      if (msg.Content == "左" || msg.Content == "left") {
-          msg_to_send = 'left';
-      }
-      if (msg.Content == "右" || msg.Content == "right") {
-          msg_to_send = 'right';
-      }
-      if (msg.Content == "停" || msg.Content == "stop") {
-          msg_to_send = 'stop';
-      }
-      if (msg_to_send) {
-          client.publish('jx', msg_to_send); //通过mqtt推送消息
-          ret = "Hi" + msg.FromUserName + "\r\n," + "收到指令：" + msg_to_send;
+
+      var tmp1 = motoRun(msg.Content);
+      if (tmp1) {
+          client.publish('jx', tmp1); //通过mqtt推送消息
+          ret = "Hi" + msg.FromUserName + "\r\n," + "收到指令：" + msg.Content;
       }
 
     for (var key in text_rpls) {
@@ -107,10 +115,16 @@ app.use('/', wechat('fugreat', function (req, res, next) {
         break;
       }
     }
-
     if (!ret) {
       ret = '你问的我不清楚哎, 请找到我的电话后给我打电话吧';
     }
+  }
+  else if (msg.MsgType == 'voice'){
+      var tmp1 = motoRun(msg.Recognition);
+      if (tmp1) {
+          client.publish('jx', tmp1); //通过mqtt推送消息
+          ret="好的，收到消息:" + msg.Recognition + "执行动作" + tmp1;
+      }
   }
   else {
     fs.appendFile('msg.log', msg.FromUserName + " 发送了 " + msg.MsgType + " 类型的信息\n");
